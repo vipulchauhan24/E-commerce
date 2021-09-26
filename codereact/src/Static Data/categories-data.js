@@ -3,21 +3,21 @@ export const categories = [
     {
         id: 1,
         name: 'Mobiles',
-        items: 5
+        image : './images/categories-mobile.jpg'
     },
     {
         id: 2,
         name: 'Fashion',
-        items: 4
+        image : './images/categories-fashion.jpg'
     },
     {
         id: 3,
         name: 'Electronics',
-        items: 6
+        image : './images/categories-electronics.jpg'
     },
     {
         id: 4,
         name: 'Books',
-        items: 5
+        image : './images/categories-books.jpg'
     }
 ];

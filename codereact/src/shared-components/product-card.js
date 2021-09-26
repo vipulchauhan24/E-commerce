@@ -1,25 +1,14 @@
 import React from 'react';
-import './product-card.css';
+import { Link } from 'react-router-dom';
 export class ProductCard extends React.Component {
     render(){
+        const {image_url, name, price, id} = this.props.details;
         return (
             <div className="product-card">
-                <div className="product-image">
-
-                </div>
-                <div className="product-info">
-                    <p>#product 1</p>
-                    <strong>36.99 USD</strong>
-                </div>
-                <div className="product-review">
-                    <div>
-
-                    </div>
-                    <strong>183 reviews</strong>
-                </div>
-                <div className="d-flex align-items-center justify-content-between">
-                    <button className="btn btn-count">1 pcs</button>
-                    <button className="btn btn-primary">Add to cart</button>
+                <Link to="details"><div onClick={() => this.props.changeProductId(id)} className="img" style={{background: "url('"+image_url+"')"}}></div></Link>
+                <div>
+                    <Link style={{textDecoration:"none",color:"#227AFF"}} to="details"><h4 onClick={() => this.props.changeProductId(id)}>{name}</h4></Link>
+                    <p>{price}</p>
                 </div>
             </div>
         );

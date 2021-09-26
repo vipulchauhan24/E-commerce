@@ -1,29 +1,21 @@
 import React from "react";
+import CategoryCard from "../shared-components/category-card";
 import { categories } from "../Static Data/categories-data";
-import './Categories.css';
 export class Categories extends React.Component {
     render(){
         return(
-            <div className="categories-wrapper">
+            <div className="categories-wrapper container">
                 <h2>
                     Categories
                 </h2>
-                <div>
-                    <ul>
-                        {categories.map(item => {
-                            return(
-                                <li key={item.id}>
-                                    <div className="image-wrapper">
-                                        
-                                    </div>
-                                    <div>
-                                        <h3>{item.name}</h3>
-                                        <p>{item.items} items</p>
-                                    </div>
-                                </li>
-                            ) 
-                        })}
-                    </ul>
+                <div className="categories">
+                    {
+                        categories.map(item => {
+                            return (
+                                <CategoryCard key={item.id} item={item}/>
+                            )
+                        })
+                    }
                 </div>
             </div>
         );
