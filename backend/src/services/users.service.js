@@ -1,15 +1,17 @@
-const Sequelize = require('sequelize')
-var sequelize = new Sequelize('e_comm', 'root', 'vipul', {
-    host: 'localhost',
-    dialect: 'mysql',
-  });
-
+const DB = require('../../models/db.index');
+const users = DB.users;
 exports.register = (data, callback) =>{
-    sequelize.query(`INSERT INTO users(email, password, createdAt, updatedAt) VALUES('${data.email}', '${data.password}','${new Date().toISOString().slice(0, 19).replace('T', ' ')}', '${new Date().toISOString().slice(0, 19).replace('T', ' ')}')`).then(()=>{
+    const today = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    users.create({
+        email : data.email,
+        password : data.password,
+        createdAt: today,
+        updatedAt : today
+    }).then(() =>{
         return callback(null, 'Registration successful');
     }).catch(err => {
         return callback(err);
-    })
+    });
 }
 
 exports.login = (data, callback) =>{

@@ -1,15 +1,15 @@
-const Sequelize = require('sequelize')
-var sequelize = new Sequelize('e_comm', 'root', 'vipul', {
-    host: 'localhost',
-    dialect: 'mysql',
-});
+const DB = require('../../models/db.index');
+const categories = DB.categories;
 
 exports.addCategory = (data, callback) => {
-    sequelize.query(`INSERT INTO categories(category_name, image_url) VALUES('${data.category.toLowerCase()}', "${data.image_url}")`).then(()=>{
+    categories.create({
+        category_name : data.category.toLowerCase(),
+        image : data.image_url
+    }).then(() =>{
         return callback(null, 'Category Added');
     }).catch(err => {
         return callback(err);
-    })
+    });
 };
 
 exports.getCategory = (callback) => {
