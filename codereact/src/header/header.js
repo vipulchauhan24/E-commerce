@@ -13,7 +13,7 @@ export class Header extends React.Component {
                     <img className="search-icon" src="./icons/ic-actions-search.svg" alt="search"/>
                 </div>
                 <div className="d-flex align-items-center justify-content-between" style={{columnGap: "16px"}}>
-                    <Link to="/login"><img style={{width: "45px"}} src="./icons/Button - Fourth - Icon.svg" alt="user"/></Link>
+                    <Link to="/login" className="d-flex align-items-center justify-content-between"><img style={{width: "45px"}} src="./icons/Button - Fourth - Icon.svg" alt="user"/></Link>
                     <div>
                         <button className="btn-primary btn d-flex align-items-center" style={{columnGap:'5px'}}>
                             <img src="./icons/ic-ecommerce-basket.svg" alt="cart"/>

@@ -13,9 +13,9 @@ exports.addCategory = (data, callback) => {
 };
 
 exports.getCategory = (callback) => {
-    sequelize.query('SELECT category_name, image_url FROM categories').then(( categories)=>{
-        return callback(null, categories[0]);
+    categories.findAll().then((categories)=>{
+        return callback(null, categories);
     }).catch(err => {
         return callback(err);
-    })
+    });
 };

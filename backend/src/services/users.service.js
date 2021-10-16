@@ -15,15 +15,19 @@ exports.register = (data, callback) =>{
 }
 
 exports.login = (data, callback) =>{
-    sequelize.query(`SELECT * FROM users WHERE email='${data.email}'`).then((result)=>{
-        if(result[0][0]){
-            if(result[0][0].email === `${data.email}`){
-                return callback(null, result[0][0].password);
+    users.findAll({
+        where: {
+            email: `${data.email}`
+        }
+    }).then((user)=>{
+        if(user[0]){
+            if(user[0].dataValues.email === `${data.email}`){
+                return callback(null, user[0].dataValues.password);
             }
         } else {
             return callback("Email not found");
         }
     }).catch(err => {
         return callback(err);
-    })
+    });
 }

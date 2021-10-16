@@ -26,12 +26,14 @@ exports.addProduct = (req, res) => {
         };
         productService.addProduct(data, (error, message) => {
             if(error){
-                console.log(error)
-                if(error.errors[0].type === 'unique violation'){
-                    return res.status(400).send({success : 0, message: val.product_name + ' is already added.'});
-                } else {
-                    return res.status(400).send({success : 0, message: 'Bad request'});
+                if(error.parent.code === 'ER_DATA_TOO_LONG'){
+                    return res.status(400).send({success : 0, message: 'Data too long!'});
                 }
+                if(error.parent.code === 'ER_DUP_ENTRY'){
+                    return res.status(400).send({success : 0, message: val.product_name + ' is already added.'});
+                } 
+                return res.status(400).send({success : 0, message: 'Bad request'});
+
             }
             return res.status(201).send({success:1, message: message});
         });

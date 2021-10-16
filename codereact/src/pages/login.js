@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-
-export default class Login extends Component {
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {withRouter} from 'react-router-dom';
+const {REACT_APP_API_URL} = process.env;
+class Login extends Component {
 
     constructor(){
         super();
         this.state = {
             email : "",
-            password : ""
+            password : "",
+            error: ""
         }
     }
 
@@ -21,20 +25,74 @@ export default class Login extends Component {
             password: ev.target.value
         })
     }
-    handleLogin(){
-        fetch("http://localhost:3001/login",{
-            method: "post",
-            headers:{
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                email : this.state.email,
-                password : this.state.password
+    validateEmail(email){
+        const re =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return re.test(email);
+    }
+    validateData(callback){
+        if(this.state.email.length < 1 || this.state.password.length < 1){
+            this.setState({
+                error: 'Empty fields not allowed!'
             })
-        }).then(res => res.json)
-        .then(data => {
-            console.log(data)
-        })
+            return callback(false);
+        }
+        if(!this.validateEmail(this.state.email)){
+            this.setState({
+                error: 'Email not valid'
+            })
+            return callback(false);
+        }
+        return callback(true);
+    }
+
+    redirectToHome(){
+        this.props.history.push('/');
+    }
+
+    handleLogin(){
+        this.validateData((status)=>{
+            if(status){
+                this.setState({
+                    error: ''
+                });
+                fetch(REACT_APP_API_URL + "user/login",{
+                    method: "post",
+                    headers:{
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email : this.state.email,
+                        password : this.state.password
+                    })
+                }).then(res => res.json()).then(data => {
+                    if(data.success === 0){
+                        toast.error(data.message, {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    } else {
+                        sessionStorage.setItem('accessToken', data.token);
+                        sessionStorage.setItem('email', data.email);
+                        toast.success(data.message, {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                        this.redirectToHome();
+                    }
+                });
+            }
+        });
+        
     }
     render() {
         return (
@@ -44,11 +102,15 @@ export default class Login extends Component {
                     <h1 style={{marginBottom:"2rem"}}>Login to your Account</h1>
                     <input style={{marginBottom:"0.5rem"}} className="form-input" placeholder="Enter email" type="email"  onChange={(e)=>{this.setName(e)}}/>
                     <input style={{marginBottom:"0.5rem"}} className="form-input" placeholder="Enter password" type="password" onChange={(e)=>{this.setPassword(e)}}/>
+                    <small style={{color:"red"}}>{this.state.error}</small>
                     <button style={{width:"100%"}} onClick={()=> this.handleLogin()} className="btn btn-primary">Login</button>
                     <p>or</p>
                     <Link style={{width:"100%"}} to="/signup"><button style={{width:"100%"}} className="btn btn-primary">Signup</button></Link>
                 </div>
+                <ToastContainer />
             </div>
         )
     }
 }
+
+export default withRouter(Login);

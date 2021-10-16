@@ -3,14 +3,14 @@ module.exports = (sequelize, Sequelize) => {
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        primaryKey: 1,
-        unique: 1,
-        autoIncrement: 1
+        primaryKey: true,
+        unique: true,
+        autoIncrement: true
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: 1
+        unique: true
       },
       password: {
         type: Sequelize.STRING,
