@@ -31,14 +31,13 @@ export class Browse extends React.Component{
         return(
             <div className="browse-container container">
                 <h2>Browse</h2>
-                <div className="product-cards d-flex align-items-center justify-content-between flex-wrap" style={{columnGap: "1em", rowGap: "1em"}}>
+                <div className="product-cards" style={{columnGap: "1em", rowGap: "1em"}}>
                     {
                         this.state.products.map(listItem => {
                             return <ProductCard changeProductId={this.props.changeProductId} key={listItem.product_id} details={listItem}/>
                         })
                     }
                 </div>
-                
             </div>
             
         );

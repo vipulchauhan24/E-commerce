@@ -3,7 +3,7 @@ module.exports = (sequelize, Sequelize) => {
         cart_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
-            foreignKey: true,
+            primaryKey: true,
             unique: true,
             autoIncrement: true
         },
@@ -11,17 +11,15 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             foreignKey: true,
-            references: { model: 'product', key: 'product_id' }
+            references: { model: 'products', key: 'product_id' }
         },
         product_name: {
             type: Sequelize.STRING,
-            allowNull: false,
-            unique: true
+            allowNull: false
         },
         product_description: {
             type: Sequelize.STRING,
-            allowNull: false,
-            unique: true
+            allowNull: false
         },
         product_image: {
             type: Sequelize.STRING,
@@ -30,14 +28,14 @@ module.exports = (sequelize, Sequelize) => {
         product_rating: {
             type: Sequelize.STRING,
             allowNull: false,
-            defaultValue : false,
+            defaultValue : 0,
             max: 5
         },
         category_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
             foreignKey: true,
-            unique: true
+            references: { model: 'categories', key: 'category_id' }
         },
         createdAt: {
             type : Sequelize.DATE,
@@ -46,6 +44,12 @@ module.exports = (sequelize, Sequelize) => {
         updatedAt: {
             type : Sequelize.DATE,
             defaultValue: Sequelize.NOW
+        },
+        user_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            foreignKey: true,
+            references: { model: 'users', key: 'user_id' }
         }
     });
   

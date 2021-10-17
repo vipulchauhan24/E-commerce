@@ -14,8 +14,11 @@ exports.addProduct = (req, res) => {
     
     productService.getCategoryByName(val.category_name, (error, category) => {
         if(error){
+            if(error === 'Category not found.'){
+                return res.status(400).send({success : 0, message: 'Category not found.'});
+            }
             return res.status(400).send({success : 0, message: 'Bad request!'});
-        }
+        }        
         var data = {
             product_name : val.product_name,
             product_description : val.product_description,
@@ -50,8 +53,6 @@ exports.getProducts = (req, res) =>{
     });
 }
 
-
-
 exports.getProductsByCategory = (req, res) =>{
     if(!req.body){
         return res.status(400).send({success:0, message:'Body cannot be empty!'})
@@ -60,6 +61,9 @@ exports.getProductsByCategory = (req, res) =>{
     }
     productService.getCategoryByName(req.body.category_name, (error, category) => {
         if(error){
+            if(error === 'Category not found.'){
+                return res.status(400).send({success : 0, message: 'Category not found.'});
+            }
             return res.status(400).send({success : 0, message: 'Bad request!'});
         }
         var data = {
@@ -69,8 +73,25 @@ exports.getProductsByCategory = (req, res) =>{
             if(error){
                 return res.status(400).send({success : 0, message: 'Bad request'});
             }
-            res.status(201).send({success:1, message: 'Successfully retrieved products.', products:products});
+            res.status(200).send({success:1, message: 'Successfully retrieved products.', products:products});
         });
-    });
-    
+    });   
+}
+
+exports.getProductById = (req, res) =>{
+    if(!req.headers.product_id){
+        return res.status(400).send({success:1, message:'Request headers does not have product id.'})
+    }
+    const data = {
+        product_id : req.headers.product_id
+    }
+    productService.getProductById(data, (error, product) =>{
+        if(error){
+            if(error === 'Product not found.'){
+                return res.status(400).send({success : 0, message: 'Product not found.'});
+            }
+            return res.status(400).send({success : 0, message: 'Bad request'});
+        }
+        res.status(200).send({success:1, message: 'Successfully retrieved products.', products:product});
+    })
 }

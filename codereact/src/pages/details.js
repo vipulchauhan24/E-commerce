@@ -1,24 +1,48 @@
 import React, { Component } from 'react'
-import { browseList } from '../Static Data/products-data';
+const {REACT_APP_API_URL} = process.env;
 
 export class Details extends Component {
+
+    loadProduct(){
+        fetch(REACT_APP_API_URL+"product/id",{
+            method: "get",
+            headers:{
+                "content-type": "application/json",
+                "product_id": this.props.productId
+            }
+        }).then(res => res.json()).then(data => {
+            if(data.success === 1){
+                this.setState({
+                    product: data.products[0]
+                })
+            }
+        });
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            product : []
+        }
+    }
+    componentDidMount(){
+        this.loadProduct();
+    }
+
     render() {
-        const {name, price, description, image_url} = browseList[this.props.productId - 1];
+        const {product_image, product_name, product_price, product_description} = this.state.product;
         return (
             <div className="container">
                 <div className="product-description" style={{gap:'3rem'}}>
                     <div className="product-main-image d-flex align-items-center justify-content-center">
-                        <img src={image_url} alt={name}/>
+                        <img src={product_image} alt={product_name}/>
                     </div>
                     <div className="d-flex flex-column product-info">
-                        <h2>{name}</h2>
-                        <p className="price">{price}</p>
-                        <p className="desc">
-                            {description}{this.props.productId}
+                        <h2>{product_name}</h2>
+                        <p className="price">₹{product_price}</p>
+                        <p className="desc" dangerouslySetInnerHTML={{__html: product_description}}>
+                            
                         </p>
-                        <div className="d-flex align-items-center" style={{columnGap:'1rem', marginBottom:'2rem'}}>
-                            <button className="btn btn-count">1 pcs</button>
-                        </div>
                         <div className="d-flex align-items-center" style={{columnGap:'1rem'}}>
                             <button className="btn btn-primary">Add to cart</button>
                             <button className="btn btn-transparent">Add to whishlist</button>

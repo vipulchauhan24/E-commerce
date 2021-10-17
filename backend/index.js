@@ -5,12 +5,13 @@ var upload = multer();
 const app = express();
 const cors = require('cors')
 
-const _PORT = 3001;
+const _PORT = 3002;
 
 const userRoutes = require('./src/routes/users.route');
 const auth = require("./src/middleware/auth");
 const categoriesRoutes = require('./src/routes/Categories.route');
 const productRoutes = require('./src/routes/Products.route');
+const cartRoutes = require('./src/routes/Cart.route');
 
 app.use(express.json());
 // for parsing application/xwww-
@@ -32,6 +33,9 @@ app.post("/welcome", auth, (req, res) => {
 app.use("/categories", categoriesRoutes);
 
 app.use("/product", productRoutes);
+
+app.use("/cart", auth, cartRoutes);
+
 
 
 app.listen(_PORT, () => {

@@ -11,6 +11,7 @@ exports.register= (req, res, next)=>{
             password: hash
         }
         userService.register(data, (error, msg)=>{
+            console.log(error)
             if(error){
                 if(error.errors[0].type === 'unique violation' && error.errors[0].value === data.email){
                     return res.status(400).send({success : 0, message: data.email + ' is already registered'});

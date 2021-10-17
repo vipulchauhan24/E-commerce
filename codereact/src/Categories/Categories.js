@@ -1,6 +1,6 @@
 import React from "react";
 import CategoryCard from "../shared-components/category-card";
-const {REACT_APP_API_URL} = process.env
+const {REACT_APP_API_URL} = process.env;
 
 export class Categories extends React.Component {
     loadCategories(){

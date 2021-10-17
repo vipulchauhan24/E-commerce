@@ -9,6 +9,7 @@ import { Route, Switch } from 'react-router';
 import { Menu } from './menu/menu';
 import Login from './pages/login';
 import Signup from './pages/signup';
+import Footer from './shared-components/Footer';
 class App extends React.Component{
   constructor(){
     super()
@@ -24,7 +25,8 @@ class App extends React.Component{
   }
   render(){
     return (
-      <BrowserRouter>        
+      <div>
+        <BrowserRouter>        
         <Switch>
           <Route path='/' exact>
             <div className="container-fluid">
@@ -54,7 +56,9 @@ class App extends React.Component{
             <Signup/>
           </Route>
         </Switch>
+        <Footer/>
       </BrowserRouter>
+      </div>
     );
   }
 }
