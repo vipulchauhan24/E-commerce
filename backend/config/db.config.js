@@ -1,5 +1,5 @@
 module.exports = {
-    HOST: "127.0.0.1",
+    HOST: "db",
     USER: "user",
     PASSWORD: "password",
     DB: "e_comm",
@@ -11,3 +11,4 @@ module.exports = {
       idle: 10000
     }
 };
+// /home/vipul/projects/E-commerce/Database/e_comm.sql

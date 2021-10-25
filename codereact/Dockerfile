@@ -1,10 +1,10 @@
 FROM  node:latest as builder
 
-RUN mkdir -p /home/node
-WORKDIR /home/node
+RUN mkdir -p /home/react
+WORKDIR /home/react
 
-COPY --chown=node:node . .
-USER node
+COPY --chown=root:root . .
+USER root
 RUN npm install
 RUN npm run build
 
@@ -19,7 +19,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 RUN rm -rf /var/www/*
 
 # Static build
-COPY --from=builder /home/node/build /var/www
+COPY --from=builder /home/react/build /var/www
 
 
 # Default port exposure
