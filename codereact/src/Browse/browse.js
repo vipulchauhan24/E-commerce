@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProductCard } from '../shared-components/product-card';
-const {REACT_APP_API_URL} = process.env
+import { REACT_APP_API_URL } from "../constant";
 export class Browse extends React.Component{
 
     loadProducts(){

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {withRouter} from 'react-router-dom';
-const {REACT_APP_API_URL} = process.env;
+import { REACT_APP_API_URL } from "../constant";
+
 
 class Signup extends Component {
     constructor(){
