@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {withRouter} from 'react-router-dom';
-const {REACT_APP_API_URL} = process.env;
+import { REACT_APP_API_URL } from "../constant";
+
 
 class Signup extends Component {
     constructor(){
@@ -98,7 +99,7 @@ class Signup extends Component {
         return (
             <div className="container-fluid login-page d-flex align-items-center justify-content-center">
                 <div className="d-flex align-items-center justify-content-center flex-column">
-                    <Link to="/"><img style={{width: "107px", marginBottom:"1rem"}} src="./images/E-comm.png" alt="e-comm"/></Link>
+                    <Link to="/"><img style={{width: "107px", marginBottom:"1rem"}} src="/images/E-comm.png" alt="e-comm"/></Link>
                     <h1 style={{marginBottom:"2rem"}}>Signup an Account</h1>
                     <input style={{marginBottom:"0.5rem"}} className="form-input" type="email" onChange={(e)=>{this.setName(e)}} placeholder="Enter email"/>
                     <input style={{marginBottom:"0.5rem"}} className="form-input" type="password" onChange={(e)=>{this.setPassword(e)}} placeholder="Enter password"/>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-const {REACT_APP_API_URL} = process.env;
+import { REACT_APP_API_URL } from "../constant";
+
 
 export class Details extends Component {
 

@@ -6,17 +6,17 @@ export class Header extends React.Component {
         return (
             <nav className="d-flex align-items-center justify-content-between top-nav container">
                 <div>
-                    <Link to="/"><img style={{width: "107px"}} src="./images/E-comm.png" alt="e-comm"/></Link>
+                    <Link to="/"><img style={{width: "107px"}} src="/images/E-comm.png" alt="e-comm"/></Link>
                 </div>
                 <div className="input-wrapper" style={{flexBasis: "50%"}}>
                     <input placeholder="Search for ..." className="form-input" />
-                    <img className="search-icon" src="./icons/ic-actions-search.svg" alt="search"/>
+                    <img className="search-icon" src="/icons/ic-actions-search.svg" alt="search"/>
                 </div>
                 <div className="d-flex align-items-center justify-content-between" style={{columnGap: "16px"}}>
-                    <Link to="/login" className="d-flex align-items-center justify-content-between"><img style={{width: "45px"}} src="./icons/Button - Fourth - Icon.svg" alt="user"/></Link>
+                    <Link to="/login" className="d-flex align-items-center justify-content-between"><img style={{width: "45px"}} src="/icons/Button - Fourth - Icon.svg" alt="user"/></Link>
                     <div>
                         <button className="btn-primary btn d-flex align-items-center" style={{columnGap:'5px'}}>
-                            <img src="./icons/ic-ecommerce-basket.svg" alt="cart"/>
+                            <img src="/icons/ic-ecommerce-basket.svg" alt="cart"/>
                             117 USD
                         </button>
                     </div>
