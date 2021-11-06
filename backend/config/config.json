@@ -3,7 +3,7 @@
     "username": "user",
     "password": "password",
     "database": "e_comm",
-    "host": "db",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {

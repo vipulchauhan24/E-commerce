@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import { Header } from './header/header';
+import Header from './header/header';
 import { BrowserRouter } from 'react-router-dom';
 import { Home } from './pages/home';
-import {Details} from './pages/details';
+import Details from './pages/details';
 import { Checkout } from './pages/checkout';
 import { Route, Switch } from 'react-router';
-import { Menu } from './menu/menu';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import Footer from './shared-components/Footer';
@@ -16,16 +15,16 @@ class App extends React.Component{
 
   loadCategories(){
     fetch(REACT_APP_API_URL+"categories/load",{
-        method: "get",
-        headers:{
-            "content-type": "application/json"
-        }
+      method: "get",
+      headers:{
+          "content-type": "application/json"
+      }
     }).then(res => res.json()).then(data => {
-        if(data.success === 1){
-            this.setState({
-                categories: data.categories
-            })
-        }
+      if(data.success === 1){
+        this.setState({
+            categories: data.categories
+        })
+      }
     });
   }
 
@@ -34,13 +33,20 @@ class App extends React.Component{
     this.state = {
       productId : 1,
       categories : [],
-      categoryName : ''
+      categoryName : '',
+      user: 'Login',
+      loggedIn : false
     }
     this.changeProductId = this.changeProductId.bind(this);
     this.changeCategory = this.changeCategory.bind(this);
+    this.loadUserName = this.loadUserName.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount(){
+    if(sessionStorage.getItem('accessToken')){
+      this.loadUserName(sessionStorage.getItem('email').split('@')[0]);
+    }
     this.loadCategories();
   }
 
@@ -57,32 +63,81 @@ class App extends React.Component{
     });
   }
 
+  loadUserName(name){
+    this.setState({
+      user : 'Hi '+ name,
+      loggedIn : true
+    })
+  }
+
+  logout(){
+    localStorage.clear('key');
+    sessionStorage.clear('accessToken');
+    sessionStorage.clear('email');
+    this.setState({
+      loggedIn : false
+    });
+    
+  }
+
   render(){
     return (
       <div>
-        <BrowserRouter>    
-          <div className="container-fluid">
-            <Header/>
-            <Menu categories={this.state.categories} changeCategory={this.changeCategory} />
-          </div>    
+        <BrowserRouter>   
         <Switch>
           <Route path='/' exact>
-            <Home categories={this.state.categories} changeProductId={this.changeProductId}/>
+            <div className="container-fluid">
+              <Header
+               categories={this.state.categories} 
+               changeCategory={this.changeCategory} 
+               logout={this.logout} 
+               username={this.state.user} 
+               loggedIn={this.state.loggedIn}
+               />
+            </div>
+            <Home categories={this.state.categories} changeProductId={this.changeProductId} changeCategory={this.changeCategory}/>
           </Route>
-          <Route path='/:name' exact>
+          <Route path='/category/:name' exact>
+            <div className="container-fluid">
+            <Header
+               categories={this.state.categories} 
+               changeCategory={this.changeCategory} 
+               logout={this.logout} 
+               username={this.state.user} 
+               loggedIn={this.state.loggedIn}
+               />
+            </div>
             <Products categoryName={this.state.categoryName} changeProductId={this.changeProductId}/>
           </Route>
-          <Route path='/details' exact>
+          <Route path='/details/:name' exact>
+            <div className="container-fluid">
+              <Header
+               categories={this.state.categories} 
+               changeCategory={this.changeCategory} 
+               logout={this.logout} 
+               username={this.state.user} 
+               loggedIn={this.state.loggedIn}
+               />
+            </div>
             <Details productId={this.state.productId}/>
           </Route>
           <Route path='/checkout' exact>
-            <Checkout/>
+            <div className="container-fluid">
+              <Header
+               categories={this.state.categories} 
+               changeCategory={this.changeCategory} 
+               logout={this.logout} 
+               username={this.state.user} 
+               loggedIn={this.state.loggedIn}
+               />
+            </div>
+            <Checkout changeProductId={this.changeProductId}/>
           </Route>
           <Route path='/login' exact>
-            <Login/>
+            <Login loadUserName={this.loadUserName}/>
           </Route>
           <Route path='/signup' exact>
-            <Signup/>
+            <Signup loadUserName={this.loadUserName}/>
           </Route>
         </Switch>
         <Footer/>

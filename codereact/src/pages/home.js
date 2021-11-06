@@ -8,7 +8,7 @@ export class Home extends React.Component {
         return (
             <div>
                 <Hero/>
-                <Categories categories={this.props.categories}/>
+                <Categories categories={this.props.categories} changeCategory={this.props.changeCategory}/>
                 <Browse changeProductId={this.props.changeProductId}/>
             </div>
         );

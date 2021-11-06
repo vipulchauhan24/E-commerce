@@ -24,7 +24,7 @@ export default class Footer extends Component {
                     </ul>
                 </div>
                 <div className="footer-end">
-                    <Link to="/"><img style={{width: "107px"}} src="/images/E-comm.png" alt="e-comm"/></Link>
+                    <Link to="/"><img style={{width: "2.5em"}} src="/icons/store.png" alt="e-comm"/></Link>
                     <span>
                         All rights reserved&copy;2021
                     </span>

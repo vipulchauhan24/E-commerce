@@ -56,10 +56,13 @@ exports.loadCart = (req, res) =>{
         }
         cartService.getUserId(userEmail, (error, id)=>{
             if(error){
-                    return res.status(400).send({success:0, message:'Bad request.'});
+                return res.status(400).send({success:0, message:'Bad request.'});
             }
             cartService.loadCart(id, (error, cart) => {
                 if(error){
+                    if(error === 'Cart Empty'){
+                        return res.status(400).send({success : 0, message: error});
+                    }
                     return res.status(400).send({success : 0, message: 'Bad request'});
                 }
                 return res.status(200).send({success:1, message: 'Cart retrieved', cart: cart});

@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.26, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.27, for Linux (x86_64)
 --
 -- Host: localhost    Database: e_comm
 -- ------------------------------------------------------
--- Server version	8.0.26-0ubuntu0.20.04.3
+-- Server version	8.0.27-0ubuntu0.20.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `SequelizeMeta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `SequelizeMeta` (
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`name`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
@@ -57,6 +57,7 @@ CREATE TABLE `carts` (
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   `user_id` int NOT NULL,
+  `product_price` varchar(255) DEFAULT '0',
   PRIMARY KEY (`cart_id`),
   UNIQUE KEY `cart_id` (`cart_id`),
   KEY `product_id` (`product_id`),
@@ -74,7 +75,6 @@ CREATE TABLE `carts` (
 
 LOCK TABLES `carts` WRITE;
 /*!40000 ALTER TABLE `carts` DISABLE KEYS */;
-INSERT INTO `carts` VALUES (1,1,'Glun Multipurpose Portable Electronic Digital Weighing Scale','<ul><li>Wide LCD screen display, easy to read, Automatically locks the reading when data is stable</li><li>Low power consumption, Low battery indicator,Tare function, Maximum Capacity 10kg</li></ul>','https://i.imgur.com/b4ZSMWu.jpg','3',1,'2021-10-17 09:54:37','2021-10-17 09:54:37',1),(3,1,'Glun Multipurpose Portable Electronic Digital Weighing Scale','<ul><li>Wide LCD screen display, easy to read, Automatically locks the reading when data is stable</li><li>Low power consumption, Low battery indicator,Tare function, Maximum Capacity 10kg</li></ul>','https://i.imgur.com/b4ZSMWu.jpg','3',1,'2021-10-17 09:57:34','2021-10-17 09:57:34',1);
 /*!40000 ALTER TABLE `carts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,7 +168,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'test1@test.com','$2b$10$bfOaZA6PjtMsm.yYlL4coO1/9Oz0syooiEsfoRQkjMp6ejFze/Pye','2021-10-17 04:03:09','2021-10-17 09:33:09');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -181,4 +180,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-17 16:05:43
+-- Dump completed on 2021-11-06 17:49:03

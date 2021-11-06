@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { REACT_APP_API_URL } from "../constant";
+import {withRouter} from 'react-router-dom';
 
-
-export class Details extends Component {
+class Details extends Component {
 
     loadProduct(){
         fetch(REACT_APP_API_URL+"product/id",{
@@ -20,6 +20,28 @@ export class Details extends Component {
         });
     }
 
+    addToCart(id){
+        const ID = {
+            product_id: id
+        }
+        if(sessionStorage.getItem('accessToken')){
+            fetch(REACT_APP_API_URL+"cart/add",{
+                method: 'POST',
+                headers : {
+                    "content-type": "application/json",
+                    'Authorization': sessionStorage.getItem('accessToken')
+                },
+                body : JSON.stringify(ID)
+            }).then(res => res.json()).then(data => {
+                if(data.message === 'Added to cart'){
+                    this.props.history.push('/checkout');
+                }
+            });
+        } else {
+            this.props.history.push('/login');
+        }
+        
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -31,7 +53,7 @@ export class Details extends Component {
     }
 
     render() {
-        const {product_image, product_name, product_price, product_description} = this.state.product;
+        const {product_id, product_image, product_name, product_price, product_description} = this.state.product;
         return (
             <div className="container">
                 <div className="product-description" style={{gap:'3rem'}}>
@@ -45,7 +67,7 @@ export class Details extends Component {
                             
                         </p>
                         <div className="d-flex align-items-center" style={{columnGap:'1rem'}}>
-                            <button className="btn btn-primary">Add to cart</button>
+                            <button onClick={()=>{this.addToCart(product_id)}} className="btn btn-primary">Add to cart</button>
                             <button className="btn btn-transparent">Add to whishlist</button>
                         </div>
                     </div>
@@ -54,3 +76,4 @@ export class Details extends Component {
         )
     }
 }
+export default withRouter(Details);
