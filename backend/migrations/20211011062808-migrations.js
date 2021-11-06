@@ -145,6 +145,11 @@ module.exports = {
               defaultValue : 0,
               max: 5
           },
+          product_price: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            defaultValue : 0
+          },
           category_id: {
               type: Sequelize.INTEGER,
               allowNull: false,
