@@ -5,7 +5,7 @@ var upload = multer();
 const app = express();
 const cors = require('cors')
 
-const _PORT = 3001;
+const _PORT = 3002;
 
 const userRoutes = require('./src/routes/users.route');
 const auth = require("./src/middleware/auth");

@@ -1,15 +1,21 @@
 import React from 'react';
-
-import { categories } from '../Static Data/categories-data';
+import { Link } from 'react-router-dom';
 
 export class Menu extends React.Component {
+
     render(){
         return(
             <nav className="main-menu container d-flex justify-content-center">
                 <ul>
                     {
-                        categories.map(item =>{
-                            return <li key={item.id}>{item.name}</li>;
+                        this.props.categories.map(item =>{
+                            return (
+                                <Link  to={item.category_name} key={item.category_id}> 
+                                    <li onClick={()=>{this.props.changeCategory(item.category_name)}}>
+                                        {item.category_name}
+                                    </li>
+                                </Link>
+                            );
                         })
                     }
                 </ul>

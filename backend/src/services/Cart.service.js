@@ -3,6 +3,7 @@ const cart = DB.cart;
 const users = DB.users;
 
 exports.addToCart = (data, callback) => {
+    console.log(data)
     cart.create({
         product_id: data.product_id,
         product_name : data.product_name,
@@ -39,7 +40,9 @@ exports.getUserId = (email, callback) =>{
 
 exports.loadCart = (id, callback) =>{
     cart.findAll({
-        user_id : id
+        where: {
+            user_id: id
+        }
     }).then((cart)=>{
         if(cart[0]){
             return callback(null, cart);

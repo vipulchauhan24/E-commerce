@@ -6,11 +6,11 @@ import {Browse} from '../Browse/browse';
 export class Home extends React.Component {
     render(){
         return (
-            <>
+            <div>
                 <Hero/>
-                <Categories/>
+                <Categories categories={this.props.categories}/>
                 <Browse changeProductId={this.props.changeProductId}/>
-            </>
+            </div>
         );
     }
 }
