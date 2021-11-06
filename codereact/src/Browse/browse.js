@@ -34,7 +34,12 @@ export class Browse extends React.Component{
                 <div className="product-cards" style={{columnGap: "1em", rowGap: "1em"}}>
                     {
                         this.state.products.map(listItem => {
-                            return <ProductCard changeProductId={this.props.changeProductId} key={listItem.product_id} details={listItem}/>
+                            return (<ProductCard
+                                 remove={false} 
+                                 changeProductId={this.props.changeProductId} 
+                                 key={listItem.product_id} 
+                                 details={listItem}
+                                 />)
                         })
                     }
                 </div>

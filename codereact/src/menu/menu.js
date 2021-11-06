@@ -5,12 +5,12 @@ export class Menu extends React.Component {
 
     render(){
         return(
-            <nav className="main-menu container d-flex justify-content-center">
+            <nav className="main-menu d-flex justify-content-center">
                 <ul>
                     {
                         this.props.categories.map(item =>{
                             return (
-                                <Link  to={item.category_name} key={item.category_id}> 
+                                <Link to={'/category/'+item.category_name} key={item.category_id}> 
                                     <li onClick={()=>{this.props.changeCategory(item.category_name)}}>
                                         {item.category_name}
                                     </li>

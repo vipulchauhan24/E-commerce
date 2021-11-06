@@ -14,7 +14,7 @@ export class Categories extends React.Component {
                     {
                         this.props.categories.map(item => {
                             return (
-                                <CategoryCard  key={item.category_id} item={item}/>
+                                <CategoryCard changeCategory={this.props.changeCategory} key={item.category_id} item={item}/>
                             )
                         })
                     }

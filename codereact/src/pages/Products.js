@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { REACT_APP_API_URL } from '../constant';
 import { ProductCard } from '../shared-components/product-card';
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 export class Products extends Component {
     loadProducts(){
         const data = {"category_name":localStorage.getItem('category')}
@@ -13,7 +16,8 @@ export class Products extends Component {
         }).then(res => res.json()).then(data => {
             if(data.success === 1){
                 this.setState({
-                    products: data.products
+                    products : data.products,
+                    showLoader : false
                 })
             }
         });
@@ -21,7 +25,8 @@ export class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            products : []
+            products : [],
+            showLoader : true
         }
         this.loadProducts = this.loadProducts.bind(this);
     }
@@ -35,10 +40,23 @@ export class Products extends Component {
     }
     render() {
         return (
-            <div className="product__categories">
+            <div className="product__categories container">
+                <Loader
+                    type="ThreeDots"
+                    color="#00BFFF"
+                    height={100}
+                    width={100}
+                    visible={this.state.showLoader}
+                    className="loader"
+                />
                 {this.state.products?(
                     this.state.products.map(listItem => {
-                        return <ProductCard changeProductId={this.props.changeProductId} key={listItem.product_id} details={listItem}/>
+                        return (<ProductCard
+                         remove={false} 
+                         changeProductId={this.props.changeProductId} 
+                         key={listItem.product_id} 
+                         details={listItem}
+                         />)
                     })
                 ):<h1>Nothing found</h1>}
                 
