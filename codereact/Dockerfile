@@ -1,4 +1,4 @@
-FROM  node:latest as builder
+FROM  node:10.19.0 as builder
 
 RUN mkdir -p /home/react
 WORKDIR /home/react
